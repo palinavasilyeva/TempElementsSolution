@@ -7,17 +7,17 @@ class Program
     {
         using (var tempFile = new TempFile())
         {
-            tempFile.AddText("Hello, temporary file!"); 
+            tempFile.AddText("Hello, temporary file!");
             Console.WriteLine($"File is created: {tempFile.FileInfo.FullName}");
         }
         Console.WriteLine("File was deleted after using.");
 
         var tempFile2 = new TempFile();
-        tempFile2.AddText("Test Dispose."); 
+        tempFile2.AddText("Test Dispose.");
         tempFile2.Dispose();
         try
         {
-            tempFile2.AddText("Should throw an exception."); 
+            tempFile2.AddText("Should throw an exception.");
         }
         catch (ObjectDisposedException ex)
         {
@@ -32,6 +32,14 @@ class Program
         finally
         {
             tempFile3.Dispose();
+        }
+
+        Console.WriteLine("\n== TempTxtFile demo ==");
+
+        using (var tempTxt = new TempTxtFile())
+        {
+            tempTxt.WriteLine("Тестовая строка");
+            Console.WriteLine("Прочитано: " + tempTxt.ReadLine());
         }
 
         Console.ReadLine();

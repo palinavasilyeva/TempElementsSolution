@@ -2,14 +2,13 @@
 using System.IO;
 using System.Text;
 
-namespace TempElementsLib 
+namespace TempElementsLib
 {
     public class TempFile : IDisposable, ITempFile
     {
-        private readonly FileStream fileStream;
-        private readonly FileInfo fileInfo;
-
-        private bool disposed = false;
+        protected readonly FileStream fileStream;
+        protected readonly FileInfo fileInfo;
+        protected bool disposed = false;
 
         public TempFile()
         {
@@ -28,20 +27,13 @@ namespace TempElementsLib
             fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.None);
         }
 
-        public FileStream FileStream
-        {
-            get { return fileStream; }
-        }
-
-        public FileInfo FileInfo
-        {
-            get { return fileInfo; }
-        }
+        public FileStream FileStream => fileStream;
+        public FileInfo FileInfo => fileInfo;
 
         public void AddText(string value)
         {
             if (disposed) throw new ObjectDisposedException(nameof(TempFile));
-            byte[] info = new UTF8Encoding(true).GetBytes(value);
+            byte[] info = Encoding.UTF8.GetBytes(value);
             fileStream.Write(info, 0, info.Length);
             fileStream.Flush();
         }
