@@ -3,10 +3,12 @@ using System.IO;
 
 namespace TempElementsLib
 {
-    public class TempDir : IDisposable
+    public class TempDir : IDisposable, ITempElement
     {
         private readonly DirectoryInfo directoryInfo;
         private bool disposed = false;
+
+        public bool IsDisposed => disposed;
 
         public TempDir()
         {

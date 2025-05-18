@@ -38,8 +38,8 @@ class Program
 
         using (var tempTxt = new TempTxtFile())
         {
-            tempTxt.WriteLine("Тестовая строка");
-            Console.WriteLine("Прочитано: " + tempTxt.ReadLine());
+            tempTxt.WriteLine("Test string");
+            Console.WriteLine("Read: " + tempTxt.ReadLine());
         }
 
         Console.WriteLine("\n== TempDir demo ==");
@@ -55,6 +55,27 @@ class Program
             Console.WriteLine(System.IO.File.ReadAllText(newFilePath));
         }
         Console.WriteLine("Temporary directory was deleted after using.");
+
+        Console.WriteLine("\n== TempElementsList demo ==");
+
+        using (var tempList = new TempElementsList())
+        {
+            tempList.AddElement<TempFile>();
+            tempList.AddElement<TempDir>();
+
+            foreach (var element in tempList.Elements)
+            {
+                if (element is TempFile tf)
+                    Console.WriteLine($"TempFile in list: {tf.FileInfo.FullName}");
+                else if (element is TempDir td)
+                    Console.WriteLine($"TempDir in list: {td.DirectoryInfo.FullName}");
+            }
+
+            tempList.Dispose();
+        }
+
+        Console.WriteLine("TempElementsList disposed, all elements cleaned up.");
+
 
         Console.ReadLine();
     }

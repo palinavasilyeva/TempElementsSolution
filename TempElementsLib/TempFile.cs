@@ -9,6 +9,8 @@ namespace TempElementsLib
         protected readonly FileStream fileStream;
         protected readonly FileInfo fileInfo;
         protected bool disposed = false;
+        public bool IsDisposed => disposed;
+
 
         public TempFile()
         {

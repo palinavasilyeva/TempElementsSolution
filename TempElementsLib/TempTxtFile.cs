@@ -8,6 +8,8 @@ namespace TempElementsLib
     {
         private StreamWriter writer;
         private bool disposed = false;
+        public bool IsDisposed => disposed;
+
 
         public TempTxtFile() : base()
         {
