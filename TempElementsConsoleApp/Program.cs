@@ -42,6 +42,20 @@ class Program
             Console.WriteLine("Прочитано: " + tempTxt.ReadLine());
         }
 
+        Console.WriteLine("\n== TempDir demo ==");
+        using (var tempDir = new TempDir())
+        {
+            Console.WriteLine($"Temporary directory created at: {tempDir.DirectoryInfo.FullName}");
+
+            string newFilePath = System.IO.Path.Combine(tempDir.DirectoryInfo.FullName, "testfile.txt");
+            System.IO.File.WriteAllText(newFilePath, "Hello from temp dir!");
+
+            Console.WriteLine($"File created inside temp dir: {newFilePath}");
+            Console.WriteLine("File content:");
+            Console.WriteLine(System.IO.File.ReadAllText(newFilePath));
+        }
+        Console.WriteLine("Temporary directory was deleted after using.");
+
         Console.ReadLine();
     }
 }
